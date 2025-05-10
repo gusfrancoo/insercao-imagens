@@ -5,4 +5,6 @@ module com.example.insercaoimagens {
 
     opens com.example.insercaoimagens to javafx.fxml;
     exports com.example.insercaoimagens;
+    exports com.example.insercaoimagens.controller;
+    opens com.example.insercaoimagens.controller to javafx.fxml;
 }
