@@ -1,5 +1,6 @@
 Segue imagens do projeto em execução:
 
 
-![WhatsApp Image 2025-05-10 at 12 02 18](https://github.com/user-attachments/assets/640cb0db-219d-4163-ad59-e15f39e8f425)
-![WhatsApp Image 2025-05-10 at 12 02 06](https://github.com/user-attachments/assets/3ca937a6-00df-434e-a0b7-eb2975d87d68)
+
+![90b085e1-6101-46ee-b287-31f1d6f5bb76](https://github.com/user-attachments/assets/9a12e897-f7f3-45e7-9472-6c4b086747b0)
+![52afef32-f84f-4847-8b21-8653c245efc1](https://github.com/user-attachments/assets/c0fdd066-1fc9-4d96-93ca-e59ee6769a74)
