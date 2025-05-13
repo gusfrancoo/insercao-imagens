@@ -2,49 +2,50 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="451.0" prefWidth="600" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="com.example.insercaoimagens.controller.HelloController">
+<AnchorPane prefHeight="300.0" prefWidth="388.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.insercaoimagens.controller.HelloController">
 
-    <VBox alignment="TOP_CENTER" spacing="15" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
-        <padding>
-            <Insets bottom="10" left="10" right="10" top="10" />
-        </padding>
+    <VBox alignment="TOP_CENTER" spacing="12" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
+        <padding><Insets bottom="10" left="10" right="10" top="10" /></padding>
 
         <HBox alignment="CENTER_LEFT" spacing="10">
-            <Label text="Selecione o prato:" />
-            <ComboBox fx:id="comboBoxPratos" prefWidth="200" />
+            <Label prefWidth="100" text="Matrícula:" />
+            <TextField fx:id="textFieldMatricula" promptText="Número da matrícula" />
         </HBox>
 
         <HBox alignment="CENTER_LEFT" spacing="10">
-            <Label text="Extras:" />
-            <CheckBox fx:id="checkBoxBebida" text="Bebida" />
-            <CheckBox fx:id="checkBoxSobremesa" text="Sobremesa" />
+            <Label prefWidth="100" text="Nome:" />
+            <TextField fx:id="textFieldNome" promptText="Nome completo" />
         </HBox>
 
-        <VBox alignment="CENTER_LEFT" spacing="5">
-            <Label text="Observações:" />
-            <TextArea fx:id="textAreaObservacoes" prefHeight="100" prefWidth="400" wrapText="true" />
-        </VBox>
-
-        <HBox alignment="CENTER_LEFT" spacing="60.0">
-            <Button fx:id="buttonSelecionarImagem" onAction="#handleSelecionarImagem" text="Selecionar Imagem" textAlignment="CENTER">
-            <HBox.margin>
-               <Insets />
-            </HBox.margin></Button>
-            <ImageView fx:id="imageViewPrato" fitHeight="100" fitWidth="100" preserveRatio="true" />
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <Label prefWidth="100" text="Maior de idade:" />
+            <CheckBox fx:id="checkBoxMaioridade" />
         </HBox>
 
-        <HBox alignment="CENTER" spacing="20">
-            <Button fx:id="buttonCadastrar" onAction="#handleCadastrar" prefHeight="26.0" prefWidth="128.0" text="Cadastrar" />
-
-            <Button fx:id="buttonVisualizar"
-                    text="Visualizar Dados"
-                    onAction="#handleVisualizarDados"/>
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <Label prefWidth="100" text="Curso:" />
+            <ComboBox fx:id="comboBoxCurso" prefWidth="200" />
         </HBox>
 
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <Label prefWidth="100" text="Sexo:" />
+            <ComboBox fx:id="comboBoxSexo" prefWidth="200" />
+         <VBox.margin>
+            <Insets bottom="20.0" />
+         </VBox.margin>
+        </HBox>
 
-        <Label fx:id="labelResultado" alignment="CENTER" prefWidth="560" textAlignment="CENTER" wrapText="true" />
+        <Button fx:id="buttonCadastrar" onAction="#handleCadastrar" prefWidth="120" text="Cadastrar">
+         <VBox.margin>
+            <Insets bottom="15.0" />
+         </VBox.margin></Button>
+      <HBox>
+         <children>
+      
+              <Label fx:id="labelResultado" prefWidth="400" textAlignment="CENTER" wrapText="true" />
+         </children>
+      </HBox>
     </VBox>
 </AnchorPane>

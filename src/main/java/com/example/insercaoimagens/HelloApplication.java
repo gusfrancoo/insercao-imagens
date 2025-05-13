@@ -16,9 +16,9 @@ public class HelloApplication extends Application {
         );
         Parent root = loader.load();
 
-        Scene scene = new Scene(root, 650, 600);
+        Scene scene = new Scene(root, 350, 350);
 
-        stage.setTitle("Restaurante Virtual – Cadastro");
+        stage.setTitle("Cadastro de Alunos");
         stage.setScene(scene);
 
         stage.setMinWidth(640);

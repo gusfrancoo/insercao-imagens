@@ -1,88 +1,84 @@
+// src/main/java/com/example/insercaoimagens/controller/HelloController.java
 package com.example.insercaoimagens.controller;
 
-import com.example.insercaoimagens.model.Prato;
+import com.example.insercaoimagens.DAO.AlunoDAO;
+import com.example.insercaoimagens.config.Conn;
+import com.example.insercaoimagens.model.Aluno;
+import com.example.insercaoimagens.model.Curso;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
+import javafx.scene.control.*;
 
-import java.io.File;
-import java.io.IOException;
+import java.sql.SQLException;
 
 public class HelloController {
 
-    @FXML private ComboBox<Prato> comboBoxPratos;
-    @FXML private CheckBox checkBoxBebida;
-    @FXML private CheckBox checkBoxSobremesa;
-    @FXML private TextArea textAreaObservacoes;
-    @FXML private Button buttonSelecionarImagem;
-    @FXML private ImageView imageViewPrato;
+    @FXML private TextField textFieldMatricula;
+    @FXML private TextField textFieldNome;
+    @FXML private CheckBox checkBoxMaioridade;
+    @FXML private ComboBox<Curso> comboBoxCurso;
+    @FXML private ComboBox<String> comboBoxSexo;
     @FXML private Button buttonCadastrar;
-    @FXML private Button buttonVisualizar;      // <— injeção do botão novo
     @FXML private Label labelResultado;
 
-    private File imagemSelecionada;
+    public Conn connection;
 
     @FXML
-    public void initialize() {
-        comboBoxPratos.setItems(Prato.getOpcoesPadrao());
-    }
+    public void initialize() throws SQLException {
 
-    @FXML
-    protected void handleSelecionarImagem(ActionEvent event) {
-        FileChooser chooser = new FileChooser();
-        chooser.setTitle("Selecione uma imagem");
-        chooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Imagens", "*.png", "*.jpg", "*.jpeg")
-        );
-        File file = chooser.showOpenDialog(buttonSelecionarImagem.getScene().getWindow());
-        if (file != null) {
-            imagemSelecionada = file;
-            imageViewPrato.setImage(new Image(file.toURI().toString()));
-        }
+        comboBoxCurso.setItems(FXCollections.observableArrayList(Curso.values()));
+        comboBoxSexo.setItems(FXCollections.observableArrayList("Masculino", "Feminino", "Outro"));
+        connection = new Conn();
+
     }
 
     @FXML
     protected void handleCadastrar(ActionEvent event) {
-        Prato prato = comboBoxPratos.getValue();
-        boolean bebida = checkBoxBebida.isSelected();
-        boolean sobremesa = checkBoxSobremesa.isSelected();
-        String obs = textAreaObservacoes.getText().trim();
-        String nomeImg = imagemSelecionada != null ? imagemSelecionada.getName() : "Nenhuma";
+        try {
+            Long matricula = Long.parseLong(textFieldMatricula.getText().trim());
+            String nome = textFieldNome.getText().trim();
+            boolean maioridade = checkBoxMaioridade.isSelected();
+            Curso curso = comboBoxCurso.getValue();
+            String sexo = comboBoxSexo.getValue();
 
-        String resumo = String.format(
-                "Prato: %s\nBebida: %s\nSobremesa: %s\nObs.: %s\nImagem: %s",
-                prato,
-                bebida ? "Sim" : "Não",
-                sobremesa ? "Sim" : "Não",
-                obs.isEmpty() ? "-" : obs,
-                nomeImg
-        );
-        labelResultado.setText(resumo);
+            if (nome.isEmpty() || curso == null || sexo == null) {
+                labelResultado.setText("Preencha todos os campos obrigatórios.");
+                return;
+            }
+
+            Aluno aluno = new Aluno(matricula, nome, maioridade, curso, sexo);
+
+            AlunoDAO alunoDao = new AlunoDAO();
+
+            String resumo = String.format(
+                    "Matrícula: %d\nNome: %s\nMaioridade: %s\nCurso: %s\nSexo: %s",
+                    aluno.getMatricula(),
+                    aluno.getNome(),
+                    aluno.isMaioridade() ? "Sim" : "Não",
+                    aluno.getCurso(),
+                    aluno.getSexo()
+            );
+
+            labelResultado.setText(resumo);
+            alunoDao.inserir(aluno);
+            limparCampos();
+
+        } catch (NumberFormatException e) {
+            labelResultado.setText("Matrícula deve ser um número válido.");
+        }
     }
 
-    @FXML
-    protected void handleVisualizarDados(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/com/example/insercaoimagens/Visualizacao.fxml")
-        );
-        Parent root = loader.load();
+    private void limparCampos() {
+        textFieldMatricula.clear();
+        textFieldNome.clear();
 
-        VisualizacaoController vc = loader.getController();
-        vc.addItem(imageViewPrato.getImage(), labelResultado.getText());
+        checkBoxMaioridade.setSelected(false);
 
-        Stage stage = (Stage) buttonVisualizar.getScene().getWindow();
-        stage.setScene(new Scene(root, 600, 450));
-        stage.setTitle("Restaurante Virtual – Visualização de Dados");
+        comboBoxCurso.getSelectionModel().clearSelection();
+        comboBoxCurso.setValue(null);
+
+        comboBoxSexo.getSelectionModel().clearSelection();
+        comboBoxSexo.setValue(null);
     }
 }
