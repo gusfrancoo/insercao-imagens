@@ -32,10 +32,18 @@ public class Conn {
                 sexo        VARCHAR(10)   NOT NULL
             );
         """;
+        String sql2 = """
+            CREATE TABLE IF NOT EXISTS curso (
+                id   BIGINT        PRIMARY KEY,
+                nome_curso        VARCHAR(150)  NOT NULL
+            );
+        """;
 
-        try (Connection conn = getConnection();
-             Statement  stmt = conn.createStatement()) {
+        try (Connection conn = getConnection()) {
+             Statement  stmt = conn.createStatement();
+             Statement  stmt2 = conn.createStatement();
             stmt.execute(sql);
+            stmt2.execute(sql2);
         }
     }
 

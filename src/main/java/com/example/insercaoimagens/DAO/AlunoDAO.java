@@ -24,7 +24,7 @@ public class AlunoDAO {
             ps.setLong(1, aluno.getMatricula());
             ps.setString(2, aluno.getNome());
             ps.setBoolean(3, aluno.isMaioridade());
-            ps.setString(4, aluno.getCurso().name());
+            ps.setString(4, aluno.getCurso().getNomeCurso());
             ps.setString(5, aluno.getSexo());
             ps.executeUpdate();
 
@@ -46,7 +46,10 @@ public class AlunoDAO {
                 Long matricula = rs.getLong("matricula");
                 String nome = rs.getString("nome");
                 boolean maior = rs.getBoolean("maioridade");
-                Curso curso = Curso.valueOf(rs.getString("curso"));
+                CursoDAO cursoDAO = new CursoDAO();
+                Long idCurso = cursoDAO.getIdByNome(rs.getString("curso"));
+                Curso curso = new Curso(idCurso, rs.getString("curso"));
+
                 String sexo = rs.getString("sexo");
 
                 lista.add(new Aluno(matricula, nome, maior, curso, sexo));
@@ -60,64 +63,64 @@ public class AlunoDAO {
     }
 
 
-    public Aluno buscarPorMatricula(Long matricula) {
-        String sql = "SELECT matricula, nome, maioridade, curso, sexo FROM alunos WHERE matricula = ?";
+//    public Aluno buscarPorMatricula(Long matricula) {
+//        String sql = "SELECT matricula, nome, maioridade, curso, sexo FROM alunos WHERE matricula = ?";
+//
+//        try (Connection conn = Conn.getConnection();
+//             PreparedStatement ps = conn.prepareStatement(sql)) {
+//
+//            ps.setLong(1, matricula);
+//            try (ResultSet rs = ps.executeQuery()) {
+//                if (rs.next()) {
+//                    String nome = rs.getString("nome");
+//                    boolean maior = rs.getBoolean("maioridade");
+////                    Curso curso = Curso.valueOf(rs.getString("curso"));
+//                    String sexo = rs.getString("sexo");
+//                    return new Aluno(matricula, nome, maior, '', sexo);
+//                }
+//            }
+//
+//        } catch (SQLException e) {
+//            throw new RuntimeException("Erro ao buscar aluno", e);
+//        }
+//
+//        return null;
+//    }
 
-        try (Connection conn = Conn.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setLong(1, matricula);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    String nome = rs.getString("nome");
-                    boolean maior = rs.getBoolean("maioridade");
-                    Curso curso = Curso.valueOf(rs.getString("curso"));
-                    String sexo = rs.getString("sexo");
-                    return new Aluno(matricula, nome, maior, curso, sexo);
-                }
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException("Erro ao buscar aluno", e);
-        }
-
-        return null;
-    }
-
-
-    public void atualizar(Aluno aluno) {
-        String sql = """
-            UPDATE alunos
-            SET nome = ?, maioridade = ?, curso = ?, sexo = ?
-            WHERE matricula = ?
-        """;
-
-        try (Connection conn = Conn.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setString(1, aluno.getNome());
-            ps.setBoolean(2, aluno.isMaioridade());
-            ps.setString(3, aluno.getCurso().name());
-            ps.setString(4, aluno.getSexo());
-            ps.setLong(5, aluno.getMatricula());
-            ps.executeUpdate();
-
-        } catch (SQLException e) {
-            throw new RuntimeException("Erro ao atualizar aluno", e);
-        }
-    }
-
-    public void deletar(Long matricula) {
-        String sql = "DELETE FROM alunos WHERE matricula = ?";
-
-        try (Connection conn = Conn.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setLong(1, matricula);
-            ps.executeUpdate();
-
-        } catch (SQLException e) {
-            throw new RuntimeException("Erro ao deletar aluno", e);
-        }
-    }
+//
+//    public void atualizar(Aluno aluno) {
+//        String sql = """
+//            UPDATE alunos
+//            SET nome = ?, maioridade = ?, curso = ?, sexo = ?
+//            WHERE matricula = ?
+//        """;
+//
+//        try (Connection conn = Conn.getConnection();
+//             PreparedStatement ps = conn.prepareStatement(sql)) {
+//
+//            ps.setString(1, aluno.getNome());
+//            ps.setBoolean(2, aluno.isMaioridade());
+//            ps.setString(3, aluno.getCurso().name());
+//            ps.setString(4, aluno.getSexo());
+//            ps.setLong(5, aluno.getMatricula());
+//            ps.executeUpdate();
+//
+//        } catch (SQLException e) {
+//            throw new RuntimeException("Erro ao atualizar aluno", e);
+//        }
+//    }
+//
+//    public void deletar(Long matricula) {
+//        String sql = "DELETE FROM alunos WHERE matricula = ?";
+//
+//        try (Connection conn = Conn.getConnection();
+//             PreparedStatement ps = conn.prepareStatement(sql)) {
+//
+//            ps.setLong(1, matricula);
+//            ps.executeUpdate();
+//
+//        } catch (SQLException e) {
+//            throw new RuntimeException("Erro ao deletar aluno", e);
+//        }
+//    }
 }

@@ -2,6 +2,7 @@
 package com.example.insercaoimagens.controller;
 
 import com.example.insercaoimagens.DAO.AlunoDAO;
+import com.example.insercaoimagens.DAO.CursoDAO;
 import com.example.insercaoimagens.config.Conn;
 import com.example.insercaoimagens.model.Aluno;
 import com.example.insercaoimagens.model.Curso;
@@ -11,6 +12,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HelloController {
 
@@ -26,8 +29,21 @@ public class HelloController {
 
     @FXML
     public void initialize() throws SQLException {
+        Conn conn = new Conn();
+        List<Curso> listaCurso = new ArrayList<>();
+        CursoDAO cursoDAO = new CursoDAO();
 
-        comboBoxCurso.setItems(FXCollections.observableArrayList(Curso.values()));
+//        DESCOMENTAR PARA INSERÇÃO
+//        Curso curso = new Curso('1', "ADS");
+//        Curso curso2 = new Curso('2', "CC");
+//        Curso curso3 = new Curso('3', "ARQ");
+//        cursoDAO.inserir(curso);
+//        cursoDAO.inserir(curso2);
+//        cursoDAO.inserir(curso3);
+
+        listaCurso = cursoDAO.listar();
+        System.out.println(listaCurso);
+        comboBoxCurso.setItems(FXCollections.observableArrayList(listaCurso));
         comboBoxSexo.setItems(FXCollections.observableArrayList("Masculino", "Feminino", "Outro"));
         connection = new Conn();
 
