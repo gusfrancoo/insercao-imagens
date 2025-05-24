@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.insercaoimagens.controller.AlunoController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <children>
+        <!-- ListView de Alunos -->
+        <ListView fx:id="listAlunos"
+                  layoutX="14" layoutY="14"
+                  prefWidth="200" prefHeight="372">
+            <contextMenu>
+                <ContextMenu>
+                    <items>
+                        <MenuItem text="Editar" onAction="#onEditar"/>
+                        <MenuItem text="Deletar" onAction="#onDeletar"/>
+                    </items>
+                </ContextMenu>
+            </contextMenu>
+        </ListView>
+
+        <!-- Formulário -->
+        <Label layoutX="230" layoutY="14" text="Matrícula:"/>
+        <TextField fx:id="txtMatricula" layoutX="230" layoutY="34" prefWidth="150"/>
+
+        <Label layoutX="230" layoutY="74" text="Nome:"/>
+        <TextField fx:id="txtNome" layoutX="230" layoutY="94" prefWidth="300"/>
+
+        <CheckBox fx:id="chkMaioridade"
+                  layoutX="230" layoutY="134"
+                  text="Maior de idade"/>
+
+        <Label layoutX="230" layoutY="174" text="Curso:"/>
+        <ComboBox fx:id="comboCurso"
+                  layoutX="230" layoutY="194" prefWidth="200"/>
+
+        <Label layoutX="230" layoutY="234" text="Sexo:"/>
+        <ComboBox fx:id="comboSexo"
+                  layoutX="230" layoutY="254" prefWidth="120"/>
+
+        <HBox layoutX="230" layoutY="300" spacing="10">
+            <children>
+                <Button text="Novo"   onAction="#onNovo"/>
+                <Button text="Salvar" onAction="#onSalvar"/>
+                <Button text="Limpar" onAction="#onLimpar"/>
+                <Button fx:id="buttonVoltar"
+                        text="Voltar"
+                        onAction="#handleVoltar"
+                        prefWidth="100"/>
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>

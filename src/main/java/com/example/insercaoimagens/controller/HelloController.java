@@ -9,8 +9,14 @@ import com.example.insercaoimagens.model.Curso;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +40,9 @@ public class HelloController {
         CursoDAO cursoDAO = new CursoDAO();
 
 //        DESCOMENTAR PARA INSERÇÃO
-//        Curso curso = new Curso('1', "ADS");
-//        Curso curso2 = new Curso('2', "CC");
-//        Curso curso3 = new Curso('3', "ARQ");
+//        Curso curso = new Curso('4', "TI");
+//        Curso curso2 = new Curso('5', "MED");
+//        Curso curso3 = new Curso('6', "IA");
 //        cursoDAO.inserir(curso);
 //        cursoDAO.inserir(curso2);
 //        cursoDAO.inserir(curso3);
@@ -96,5 +102,76 @@ public class HelloController {
 
         comboBoxSexo.getSelectionModel().clearSelection();
         comboBoxSexo.setValue(null);
+    }
+
+    @FXML
+    protected void handleVerAlunos(ActionEvent event) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/insercaoimagens/view-aluno.fxml")
+            );
+            Parent root = loader.load();
+
+            // Obtém o Stage atual
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+
+            // Troca a cena
+            stage.setTitle("Gerenciar Alunos");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            labelResultado.setText("Não foi possível abrir a tela de alunos.");
+        }
+    }
+
+    @FXML
+    protected void handleCadastrarCurso(ActionEvent event) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/insercaoimagens/cadastrar-curso.fxml")
+            );
+            Parent root = loader.load();
+
+            // Obtém o Stage atual
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+
+            // Troca a cena
+            stage.setTitle("Cadastrar curso");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            labelResultado.setText("Não foi possível abrir a tela de cadastro de cursos.");
+        }
+    }
+    @FXML
+    protected void handleVerCursos(ActionEvent event) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/insercaoimagens/view-curso.fxml")
+            );
+            Parent root = loader.load();
+
+            // Obtém o Stage atual
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+
+            // Troca a cena
+            stage.setTitle("Visualizar cursos");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            labelResultado.setText("Não foi possível abrir a tela de visualização de cursos.");
+        }
     }
 }

@@ -87,40 +87,40 @@ public class AlunoDAO {
 //        return null;
 //    }
 
-//
-//    public void atualizar(Aluno aluno) {
-//        String sql = """
-//            UPDATE alunos
-//            SET nome = ?, maioridade = ?, curso = ?, sexo = ?
-//            WHERE matricula = ?
-//        """;
-//
-//        try (Connection conn = Conn.getConnection();
-//             PreparedStatement ps = conn.prepareStatement(sql)) {
-//
-//            ps.setString(1, aluno.getNome());
-//            ps.setBoolean(2, aluno.isMaioridade());
-//            ps.setString(3, aluno.getCurso().name());
-//            ps.setString(4, aluno.getSexo());
-//            ps.setLong(5, aluno.getMatricula());
-//            ps.executeUpdate();
-//
-//        } catch (SQLException e) {
-//            throw new RuntimeException("Erro ao atualizar aluno", e);
-//        }
-//    }
-//
-//    public void deletar(Long matricula) {
-//        String sql = "DELETE FROM alunos WHERE matricula = ?";
-//
-//        try (Connection conn = Conn.getConnection();
-//             PreparedStatement ps = conn.prepareStatement(sql)) {
-//
-//            ps.setLong(1, matricula);
-//            ps.executeUpdate();
-//
-//        } catch (SQLException e) {
-//            throw new RuntimeException("Erro ao deletar aluno", e);
-//        }
-//    }
+
+    public void atualizar(Aluno aluno) {
+        String sql = """
+            UPDATE alunos
+            SET nome = ?, maioridade = ?, curso = ?, sexo = ?
+            WHERE matricula = ?
+        """;
+
+        try (Connection conn = Conn.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, aluno.getNome());
+            ps.setBoolean(2, aluno.isMaioridade());
+            ps.setString(3, aluno.getCurso().getNomeCurso());
+            ps.setString(4, aluno.getSexo());
+            ps.setLong(5, aluno.getMatricula());
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao atualizar aluno", e);
+        }
+    }
+
+    public void deletar(Long matricula) {
+        String sql = "DELETE FROM alunos WHERE matricula = ?";
+
+        try (Connection conn = Conn.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setLong(1, matricula);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao deletar aluno", e);
+        }
+    }
 }

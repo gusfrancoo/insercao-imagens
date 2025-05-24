@@ -37,13 +37,49 @@
          </VBox.margin>
         </HBox>
 
-        <Button fx:id="buttonCadastrar" onAction="#handleCadastrar" prefWidth="120" text="Cadastrar">
-         <VBox.margin>
-            <Insets bottom="15.0" />
-         </VBox.margin></Button>
+        <HBox spacing="10">
+            <!-- Botão Cadastrar -->
+            <Button fx:id="buttonCadastrar"
+                    onAction="#handleCadastrar"
+                    prefWidth="120"
+                    text="Cadastrar">
+                <HBox.margin>
+                    <Insets bottom="15.0"/>
+                </HBox.margin>
+            </Button>
+
+            <Button fx:id="buttonCadastrarCursos"
+                    onAction="#handleCadastrarCurso"
+                    prefWidth="120"
+                    text="Cadastrar Cursos">
+                <HBox.margin>
+                    <Insets bottom="15.0"/>
+                </HBox.margin>
+            </Button>
+
+            <Button fx:id="buttonVerAlunos"
+                    onAction="#handleVerAlunos"
+                    prefWidth="120"
+                    text="Ver Alunos">
+                <HBox.margin>
+                    <Insets bottom="15.0"/>
+                </HBox.margin>
+            </Button>
+
+            <Button fx:id="buttonVerCursos"
+                    onAction="#handleVerCursos"
+                    prefWidth="120"
+                    text="Ver Cursos">
+                <HBox.margin>
+                    <Insets bottom="15.0"/>
+                </HBox.margin>
+            </Button>
+
+        </HBox>
+
       <HBox>
          <children>
-      
+
               <Label fx:id="labelResultado" prefWidth="400" textAlignment="CENTER" wrapText="true" />
          </children>
       </HBox>

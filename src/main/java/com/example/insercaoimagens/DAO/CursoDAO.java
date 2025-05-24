@@ -36,22 +36,21 @@ public class CursoDAO {
     }
 
     public Long getIdByNome(String nomeCurso) throws SQLException {
-        String sql = "SELECT id FROM curso c WHERE c.nome_curso";
-        Long idCurso = null;
+        String sql = "SELECT id FROM curso c WHERE c.nome_curso = ?";
         try (Connection conn = Conn.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+             PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            while (rs.next()) {
-                idCurso = rs.getLong("id");
-
+            ps.setString(1, nomeCurso);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getLong("id");
+                } else {
+                    return null;  // ou lançar exceção se preferir
+                }
             }
-
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao listar alunos", e);
+            throw new RuntimeException("Erro ao buscar id de curso por nome", e);
         }
-
-        return idCurso;
     }
 
     public List<Curso> listar() {
@@ -75,4 +74,40 @@ public class CursoDAO {
 
         return listaCurso;
     }
+
+
+
+    public void atualizar(Curso curso) {
+        String sql = """
+            UPDATE curso
+               SET nome_curso = ?
+             WHERE id = ?
+        """;
+
+        try (Connection conn = Conn.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, curso.getNomeCurso());
+            ps.setLong(2, curso.getId());
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao atualizar curso", e);
+        }
+    }
+
+    public void deletar(Long id) {
+        String sql = "DELETE FROM curso WHERE id = ?";
+
+        try (Connection conn = Conn.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setLong(1, id);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao deletar curso", e);
+        }
+    }
+
 }

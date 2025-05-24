@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.insercaoimagens.controller.CursoController"
+            prefWidth="600" prefHeight="400">
+
+    <children>
+        <!-- Listagem -->
+        <ListView fx:id="listCursos"
+                  layoutX="14" layoutY="14"
+                  prefWidth="200" prefHeight="372">
+            <contextMenu>
+                <ContextMenu>
+                    <items>
+                        <MenuItem text="Editar" onAction="#onEditar"/>
+                        <MenuItem text="Deletar" onAction="#onDeletar"/>
+                    </items>
+                </ContextMenu>
+            </contextMenu>
+        </ListView>
+
+        <!-- Formulário -->
+        <Label layoutX="230" layoutY="14" text="ID:"/>
+        <TextField fx:id="txtId" layoutX="230" layoutY="34" prefWidth="150"/>
+
+        <Label layoutX="230" layoutY="74" text="Nome do Curso:"/>
+        <TextField fx:id="txtNomeCurso" layoutX="230" layoutY="94" prefWidth="300"/>
+
+        <!-- Ações -->
+        <HBox layoutX="230" layoutY="300" spacing="10">
+            <children>
+                <Button text="Novo"   onAction="#onNovo"/>
+                <Button text="Salvar" onAction="#onSalvar"/>
+                <Button text="Limpar" onAction="#onLimpar"/>
+                <Button text="Voltar" onAction="#onVoltar"/>
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>

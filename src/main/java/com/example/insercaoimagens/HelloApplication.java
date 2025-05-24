@@ -16,7 +16,7 @@ public class HelloApplication extends Application {
         );
         Parent root = loader.load();
 
-        Scene scene = new Scene(root, 350, 350);
+        Scene scene = new Scene(root, 500, 350);
 
         stage.setTitle("Cadastro de Alunos");
         stage.setScene(scene);
